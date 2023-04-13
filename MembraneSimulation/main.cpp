@@ -5,7 +5,7 @@
 
 int main()
 {
-	const size_t length_grid = 10;
+	const size_t length_grid = 100;
 
 	std::vector<Node> nodes{};
 	for (int y = 0; y < length_grid; ++y)
@@ -34,5 +34,5 @@ int main()
 	}
 
 	MCSolver::register_nodes(nodes);
-	MCSolver::run_simulation(100000, 1000);
+	MCSolver::run_simulation(100000, 100);
 }

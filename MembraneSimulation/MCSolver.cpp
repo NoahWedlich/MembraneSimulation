@@ -22,7 +22,16 @@ void MCSolver::run_simulation(size_t simulation_steps, size_t report_freuquency)
 			}
 			sum /= MCSolver::nodes_->size();
 
-			std::cout << "Average z is: " << sum << std::endl;
+			std::cout << step << ", " << sum << std::endl;
+
+			std::string filename = "Data\\sim_step_" + std::to_string(step);
+
+			std::ofstream file{filename};
+			for (Node& node : *MCSolver::nodes_)
+			{
+				file << node.pos().x0() << "," << node.pos().x1() << "," << node.pos().x2() << "\n";
+			}
+			file.close();
 		}
 	}
 }

@@ -1,8 +1,10 @@
 #pragma once
 #include <iostream>
+#include <fstream>
 #include <vector>
 #include <random>
 #include <cmath>
+#include <string>
 #include "Vec3.h"
 #include "Node.h"
 #include "ConstraintManager.h"
