@@ -51,6 +51,7 @@ int main_old()
             printf("%lf\n", sum);
         }
     }
+    return 0;
 }
 
 double period(double dx)
