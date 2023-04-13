@@ -122,6 +122,13 @@ double Vec3::length() const
                       cord_[2]*cord_[2] );
 }
 
+double Vec3::length_squared() const
+{
+    return cord_[0] * cord_[0] +
+           cord_[1] * cord_[1] +
+           cord_[2] * cord_[2];
+}
+
 std::ostream& operator<<(std::ostream& os, const Vec3& v)
 {
     os << "Vec3( " << v.cord_[0] << " | " << v.cord_[1] << " | " << v.cord_[2] << " )";

@@ -1,6 +1,7 @@
 #include <iostream>
 #include "Node.h"
 #include "ConstraintManager.h"
+#include "MCSolver.h"
 
 int main()
 {
@@ -31,4 +32,7 @@ int main()
 	{
 		ConstraintManager::register_neighbor_interaction(&node, 100);
 	}
+
+	MCSolver::register_nodes(nodes);
+	MCSolver::run_simulation(100000, 1000);
 }

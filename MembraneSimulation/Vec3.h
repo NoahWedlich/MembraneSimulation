@@ -36,6 +36,7 @@ public:
 	friend std::ostream& operator<< (std::ostream& os, const Vec3& v);
 
 	double length() const;
+	double length_squared() const;
 private:
 	double cord_[3];
 };
