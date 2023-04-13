@@ -1,5 +1,6 @@
 #include <iostream>
 #include "Node.h"
+#include "ConstraintManager.h"
 
 int main()
 {
@@ -26,5 +27,8 @@ int main()
 		}
 	}
 
-	int temp = 0;
+	for (Node& node : nodes)
+	{
+		ConstraintManager::register_neighbor_interaction(&node, 100);
+	}
 }

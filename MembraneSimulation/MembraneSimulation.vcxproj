@@ -127,6 +127,7 @@
     </Link>
   </ItemDefinitionGroup>
   <ItemGroup>
+    <ClCompile Include="ConstraintManager.cpp" />
     <ClCompile Include="Constraints.cpp" />
     <ClCompile Include="Main.cpp" />
     <ClCompile Include="Node.cpp" />
@@ -134,6 +135,7 @@
     <ClCompile Include="Vec3.cpp" />
   </ItemGroup>
   <ItemGroup>
+    <ClInclude Include="ConstraintManager.h" />
     <ClInclude Include="Constraints.h" />
     <ClInclude Include="Node.h" />
     <ClInclude Include="Vec3.h" />
