@@ -1,18 +1,28 @@
 #include <iostream>
 #include "Node.h"
+#include "BoundaryNode.h"
 #include "ConstraintManager.h"
 #include "MCSolver.h"
 
 int main()
 {
-	const size_t length_grid = 100;
+	const int length_grid = 20;
 
 	std::vector<Node> nodes{};
-	for (int y = 0; y < length_grid; ++y)
+	std::vector<BoundaryNode> boundaries{};
+
+	for (int y = -1; y <= length_grid; ++y)
 	{
-		for (int x = 0; x < length_grid; ++x)
+		for (int x = -1; x <= length_grid; ++x)
 		{
-			nodes.push_back(Node( x, y, 0 ));
+			if (y == -1 || y == length_grid || x == -1 || x == length_grid)
+			{
+				boundaries.push_back(BoundaryNode(x, y, 0));
+			}
+			else
+			{
+				nodes.push_back(Node( x, y, 0 ));
+			}
 		}
 	}
 
@@ -26,6 +36,14 @@ int main()
 				node.add_neighbor(&other);
 			}
 		}
+		for (BoundaryNode& other : boundaries)
+		{
+			double dist = node.distance(&other);
+			if (dist > 0 && dist < 1.1)
+			{
+				node.add_boundary_neighbor(&other);
+			}
+		}
 	}
 
 	for (Node& node : nodes)
@@ -34,5 +52,5 @@ int main()
 	}
 
 	MCSolver::register_nodes(nodes);
-	MCSolver::run_simulation(100000, 100);
+	MCSolver::run_simulation(100000, 100, true);
 }

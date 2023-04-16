@@ -15,5 +15,15 @@ const double NeighborInteraction::operator()() const
 		else
 		{ interaction += 5 * coeff_ * (r2 - 1) * (r2 - 1); }
 	}
+
+	for (const Vec3& pos : node_->boundaries())
+	{
+		double r2 = (pos - node_->pos()).length_squared();
+		if (r2 > 1)
+		{ interaction += coeff_ * (r2 - 1) * (r2 - 1); }
+		else
+		{ interaction += 5 * coeff_ * (r2 - 1) * (r2 - 1); }
+	}
+
 	return interaction;
 }

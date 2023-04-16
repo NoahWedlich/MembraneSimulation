@@ -14,7 +14,7 @@ class MCSolver
 public:
 	static void register_nodes(std::vector<Node>& nodes);
 
-	static void run_simulation(size_t simulation_steps, size_t report_freuquency);
+	static void run_simulation(size_t simulation_steps, size_t report_freuquency, bool save_data);
 	static void run_step(size_t index);
 
 	static double random();

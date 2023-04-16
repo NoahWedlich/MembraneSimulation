@@ -8,7 +8,7 @@ void MCSolver::register_nodes(std::vector<Node>& nodes)
 	MCSolver::nodes_ = &nodes;
 }
 
-void MCSolver::run_simulation(size_t simulation_steps, size_t report_freuquency)
+void MCSolver::run_simulation(size_t simulation_steps, size_t report_freuquency, bool save_data)
 {
 	for (size_t step = 0; step < simulation_steps; ++step)
 	{
@@ -24,14 +24,17 @@ void MCSolver::run_simulation(size_t simulation_steps, size_t report_freuquency)
 
 			std::cout << step << ", " << sum << std::endl;
 
-			std::string filename = "Data\\sim_step_" + std::to_string(step);
-
-			std::ofstream file{filename};
-			for (Node& node : *MCSolver::nodes_)
+			if (save_data)
 			{
-				file << node.pos().x0() << "," << node.pos().x1() << "," << node.pos().x2() << "\n";
+				std::string filename = "Data\\sim_step_" + std::to_string(step);
+
+				std::ofstream file{ filename };
+				for (Node& node : *MCSolver::nodes_)
+				{
+					file << node.pos().x0() << "," << node.pos().x1() << "," << node.pos().x2() << "\n";
+				}
+				file.close();
 			}
-			file.close();
 		}
 	}
 }
