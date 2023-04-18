@@ -65,6 +65,42 @@ Vec3 Vec3::operator-(const Vec3& v) const
     );
 }
 
+Vec3 Vec3::operator*(const Vec3& v) const
+{
+    return Vec3(
+        cord_[0] * v.cord_[0],
+        cord_[1] * v.cord_[1],
+        cord_[2] * v.cord_[2]
+    );
+}
+
+Vec3 Vec3::operator/(const Vec3& v) const
+{
+    return Vec3(
+        cord_[0] / v.cord_[0],
+        cord_[1] / v.cord_[1],
+        cord_[2] / v.cord_[2]
+    );
+}
+
+Vec3 Vec3::operator+(const double d) const
+{
+    return Vec3(
+        cord_[0] + d,
+        cord_[1] + d,
+        cord_[2] + d
+    );
+}
+
+Vec3 Vec3::operator-(const double d) const
+{
+    return Vec3(
+        cord_[0] - d,
+        cord_[1] - d,
+        cord_[2] - d
+    );
+}
+
 Vec3 Vec3::operator*(const double d) const
 {
     return Vec3(
@@ -96,6 +132,38 @@ Vec3& Vec3::operator-=(const Vec3& v)
     cord_[0] -= v.cord_[0];
     cord_[1] -= v.cord_[1];
     cord_[2] -= v.cord_[2];
+    return *this;
+}
+
+Vec3& Vec3::operator*=(const Vec3& v)
+{
+    cord_[0] *= v.cord_[0];
+    cord_[1] *= v.cord_[1];
+    cord_[2] *= v.cord_[2];
+    return *this;
+}
+
+Vec3& Vec3::operator/=(const Vec3& v)
+{
+    cord_[0] /= v.cord_[0];
+    cord_[1] /= v.cord_[1];
+    cord_[2] /= v.cord_[2];
+    return *this;
+}
+
+Vec3& Vec3::operator+=(const double d)
+{
+    cord_[0] += d;
+    cord_[1] += d;
+    cord_[2] += d;
+    return *this;
+}
+
+Vec3& Vec3::operator-=(const double d)
+{
+    cord_[0] -= d;
+    cord_[1] -= d;
+    cord_[2] -= d;
     return *this;
 }
 
