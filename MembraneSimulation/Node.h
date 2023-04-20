@@ -11,11 +11,14 @@ class Node
 {
 public:
 	Node();
-	Node(Vec3 pos);
-	Node(double x0, double x1, double x2);
+	Node(Vec3 pos, Vec3 move_mask = Vec3(1, 1, 1));
+	Node(double x0, double x1, double x2, Vec3 move_mask = Vec3(1, 1, 1));
 
 	const Vec3& pos() const;
 	const Vec3& start_pos() const;
+
+	void set_move_mask(Vec3 mask);
+	void set_move_mask(double x0, double x1, double x2);
 
 	void add_neighbor(Node* neighbor);
 	Node* get_neighbor(size_t index) const;
@@ -42,6 +45,8 @@ private:
 	Vec3 pos_;
 	Vec3 start_pos_;
 	Vec3 last_good_pos_;
+
+	Vec3 move_mask_;
 
 	std::vector<Constraint*> constraints_;
 

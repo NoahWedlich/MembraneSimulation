@@ -1,18 +1,17 @@
 #include "MCSolver.h"
 
-std::vector<Node>* MCSolver::nodes_{};
+NodeGrid* MCSolver::nodes_{};
 double MCSolver::max_step = 0.1;
 
-void MCSolver::register_nodes(std::vector<Node>& nodes)
-{
-	MCSolver::nodes_ = &nodes;
-}
+void MCSolver::register_node_grid(NodeGrid& nodes)
+{ MCSolver::nodes_ = &nodes; }
 
 void MCSolver::run_simulation(size_t simulation_steps, size_t report_freuquency, bool save_data)
 {
 	for (size_t step = 0; step < simulation_steps; ++step)
 	{
 		for (size_t t = 0; t < MCSolver::nodes_->size(); ++t) MCSolver::run_step(std::rand() % MCSolver::nodes_->size());
+
 		if (step % report_freuquency == 0)
 		{
 			double sum = 0;

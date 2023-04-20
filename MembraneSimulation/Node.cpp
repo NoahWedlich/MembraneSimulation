@@ -1,15 +1,15 @@
 #include "Node.h"
 
 Node::Node()
-    : pos_(0, 0, 0), start_pos_(0, 0, 0), neighbors_(), boundaries_(), constraints_()
+    : pos_(0, 0, 0), start_pos_(0, 0, 0), move_mask_(1, 1, 1), neighbors_(), boundaries_(), constraints_()
 {}
 
-Node::Node(Vec3 pos)
-    : pos_(pos), start_pos_(pos), neighbors_(), boundaries_(), constraints_()
+Node::Node(Vec3 pos, Vec3 move_mask)
+    : pos_(pos), start_pos_(pos), move_mask_(move_mask), neighbors_(), boundaries_(), constraints_()
 {}
 
-Node::Node(double x0, double x1, double x2)
-    : pos_(x0, x1, x2), start_pos_(x0, x1, x2), neighbors_(), boundaries_(), constraints_()
+Node::Node(double x0, double x1, double x2, Vec3 move_mask)
+    : pos_(x0, x1, x2), start_pos_(x0, x1, x2), move_mask_(move_mask), neighbors_(), boundaries_(), constraints_()
 {}
 
 const Vec3& Node::pos() const
@@ -17,6 +17,12 @@ const Vec3& Node::pos() const
 
 const Vec3& Node::start_pos() const
 { return start_pos_; }
+
+void Node::set_move_mask(Vec3 mask)
+{ move_mask_ = mask; }
+
+void Node::set_move_mask(double x0, double x1, double x2)
+{ move_mask_ = Vec3(x0, x1, x2); }
 
 void Node::add_neighbor(Node* neighbor)
 { neighbors_.push_back(neighbor); }
@@ -78,6 +84,7 @@ double Node::distance_squared(const BoundaryNode* other) const
 
 void Node::temp_move(Vec3 dV)
 {
+    dV *= move_mask_;
     last_good_pos_ = pos_;
     pos_ += dV;
 }
