@@ -7,6 +7,13 @@ void ConstraintManager::register_neighbor_interaction(Node* node, double coeff)
 	);
 }
 
+void ConstraintManager::register_external_interaction(Node* node, Vec3 strength)
+{
+	node->constraints_.push_back(
+		new ExternalInteraction(node, strength)
+	);
+}
+
 double ConstraintManager::calculate_constraints(Node* node)
 {
 	double total = 0;

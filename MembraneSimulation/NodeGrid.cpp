@@ -13,10 +13,23 @@ NodeGrid::NodeGrid(size_t len_0, size_t len_1, size_t len_2)
         {
             for (int x2 = 0; x2 < len_2; x2++)
             {
+                double jc_extern = 100;
+                Vec3 external_strength = Vec3
+                {
+                    x0 == 0 ? -jc_extern : (x0 == len_0 - 1 ? jc_extern : 0.0),
+                    x1 == 0 ? -jc_extern : (x1 == len_1 - 1 ? jc_extern : 0.0),
+                    0.0
+                };
+
                 nodes_.push_back(Node(x0, x1, x2, move_mask));
+
+                ConstraintManager::register_external_interaction(&nodes_.back(), external_strength);
             }
         }
     }
+
+    //Fix one node, to stop the grid from drifting
+    nodes_[0].set_move_mask(Vec3{ 0.0, 0.0, 0.0 });
 
     for (Node& node : nodes_)
     {

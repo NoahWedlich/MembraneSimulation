@@ -27,3 +27,13 @@ const double NeighborInteraction::operator()() const
 
 	return interaction;
 }
+
+ExternalInteraction::ExternalInteraction(Node* node, Vec3& strength)
+	: node_(node), strength_(strength)
+{}
+
+const double ExternalInteraction::operator()() const
+{
+	Vec3 interactions = -strength_ * node_->pos();
+	return interactions.x0() + interactions.x1() + interactions.x2();
+}

@@ -52,7 +52,7 @@ def render_progress(current_frame, total_frames):
 
 Writer = animation.writers["ffmpeg"]
 writer = Writer(fps=10, bitrate=1800, extra_args=['-vcodec', 'libx264'])
-ani.save("simulation_visualisation_3.mp4", writer=writer, progress_callback=render_progress)
+ani.save("simulation_visualisation_4.mp4", writer=writer, progress_callback=render_progress)
 
 print("\nDone Rendering!")
 
