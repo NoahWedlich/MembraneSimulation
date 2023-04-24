@@ -29,6 +29,7 @@ public:
 
 	const std::vector<Node*>& neighbors() const;
 	const std::vector<Vec3>& boundaries() const;
+	const std::vector<Vec3>& orig_bound() const;
 	
 	double distance(const Node* other) const;
 	double distance_squared(const Node* other) const;
@@ -45,6 +46,8 @@ private:
 	Vec3 pos_;
 	Vec3 start_pos_;
 	Vec3 last_good_pos_;
+
+	Vec3 last_translation_;
 
 	Vec3 move_mask_;
 

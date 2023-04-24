@@ -4,7 +4,7 @@ NeighborInteraction::NeighborInteraction(Node* node, double coeff)
 	: node_(node), coeff_(coeff)
 {}
 
-const double NeighborInteraction::operator()() const
+const double NeighborInteraction::operator()()
 {
 	double interaction = 0;
 	for (Node* neighbor : node_->neighbors())
@@ -28,12 +28,24 @@ const double NeighborInteraction::operator()() const
 	return interaction;
 }
 
-ExternalInteraction::ExternalInteraction(Node* node, Vec3& strength)
-	: node_(node), strength_(strength)
+CurvatureCenter::CurvatureCenter(Node* center, Node* before, Node* after, double coeff, Vec3 dir)
+	: this_(center), before_(before), after_(after), coeff_(coeff), curve_dir_(dir)
 {}
 
-const double ExternalInteraction::operator()() const
+const double CurvatureCenter::operator()()
 {
-	Vec3 interactions = -strength_ * node_->pos();
-	return interactions.x0() + interactions.x1() + interactions.x2();
+	Vec3 a = before_->pos() - this_->pos();
+	Vec3 b = after_->pos() - this_->pos();
+	Vec3 c = a + b;
+	c /= c.length();
+	Vec3 d = -c;
+	Vec3 c_dir = curve_dir_ - c;
+	Vec3 d_dir = curve_dir_ - d;
+
+	if(c_dir.length_squared() <= d_dir.length_squared())
+	{ curve_dir_ = c; }
+	else
+	{ curve_dir_ = d; }
+
+	double angle_b = std::acos(curve_dir_)
 }

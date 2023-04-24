@@ -1,29 +1,36 @@
 #include "NodeGrid.h"
 
-NodeGrid::NodeGrid(size_t len_0, size_t len_1, size_t len_2)
+NodeGrid::NodeGrid(int len_0, int len_1, int len_2)
     : len_0_(len_0), len_1_(len_1), len_2_(len_2), nodes_()
 {
     dimension_ = len_2 == 1 ? (len_1 == 1) ? (len_0 == 1) ? 0 : 1 : 2 : 3;
     Vec3 move_mask = Vec3{1.0, 1.0, 1.0};
     if (dimension_ == 1) move_mask = Vec3{ 1.0, 1.0, 0.0 };
 
-    for (int x0 = 0; x0 < len_0; x0++)
+    std::vector<BoundaryNode> boundaries{};
+
+    for (int x0 = -1; x0 <= len_0; x0++)
     {
-        for (int x1 = 0; x1 < len_1; x1++)
+        for (int x1 = -1; x1 <= len_1; x1++)
         {
             for (int x2 = 0; x2 < len_2; x2++)
             {
-                double jc_extern = 100;
-                Vec3 external_strength = Vec3
+                if (x0 == -1 || x1 == -1 || x2 == -1 || x0 == len_0 || x1 == len_1 || x2 == len_2)
                 {
-                    x0 == 0 ? -jc_extern : (x0 == len_0 - 1 ? jc_extern : 0.0),
-                    x1 == 0 ? -jc_extern : (x1 == len_1 - 1 ? jc_extern : 0.0),
-                    0.0
-                };
+                    boundaries.push_back(BoundaryNode(x0, x1, x2));
+                }
+                else
+                {
+                    double jc_extern = 100;
+                    Vec3 external_strength = Vec3
+                    {
+                        x0 == 0 ? -jc_extern : (x0 == len_0 - 1 ? jc_extern : 0.0),
+                        x1 == 0 ? -jc_extern : (x1 == len_1 - 1 ? jc_extern : 0.0),
+                        0.0
+                    };
 
-                nodes_.push_back(Node(x0, x1, x2, move_mask));
-
-                ConstraintManager::register_external_interaction(&nodes_.back(), external_strength);
+                    nodes_.push_back(Node(x0, x1, x2, move_mask));
+                }
             }
         }
     }
@@ -39,6 +46,15 @@ NodeGrid::NodeGrid(size_t len_0, size_t len_1, size_t len_2)
             if (dist > 0 && dist < 1.1)
             {
                 node.add_neighbor(&other);
+            }
+        }
+
+        for (BoundaryNode& other : boundaries)
+        {
+            double dist = node.distance(&other);
+            if (dist > 0 && dist < 1.1)
+            {
+                node.add_boundary_neighbor(&other);
             }
         }
     }

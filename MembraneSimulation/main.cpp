@@ -12,5 +12,5 @@ int main()
 	NodeGrid nodes{ 10, 10 };
 
 	MCSolver::register_node_grid(nodes);
-	MCSolver::run_simulation(100000, 100, true);
+	MCSolver::run_simulation(100000, 100, false);
 }

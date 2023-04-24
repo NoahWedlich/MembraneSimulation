@@ -1,12 +1,13 @@
 #pragma once
 #include <vector>
 #include "Node.h"
+#include "BoundaryNode.h"
 #include "ConstraintManager.h"
 
 class NodeGrid
 {
 public:
-	NodeGrid(size_t len_0 = 1, size_t len_1 = 1, size_t len_2 = 1);
+	NodeGrid(int len_0 = 1, int len_1 = 1, int len_2 = 1);
 
 	std::vector<Node>::iterator begin();
 	std::vector<Node>::const_iterator begin() const;

@@ -61,7 +61,6 @@ const std::vector<Node*>& Node::neighbors() const
 const std::vector<Vec3>& Node::boundaries() const
 { return boundaries_; }
 
-
 double Node::distance(const Node* other) const
 {
     return (other->pos_ - pos_).length();
@@ -86,6 +85,7 @@ void Node::temp_move(Vec3 dV)
 {
     dV *= move_mask_;
     last_good_pos_ = pos_;
+    last_translation_ = dV;
     pos_ += dV;
 }
 
@@ -93,7 +93,14 @@ void Node::reject_move()
 { pos_ = last_good_pos_; }
 
 void Node::accept_move()
-{ last_good_pos_ = pos_; }
+{
+    last_good_pos_ = pos_;
+    
+    for (Vec3& boundary : boundaries_)
+    {
+        boundary += last_translation_;
+    }
+}
 
 std::ostream& operator<<(std::ostream& os, const Node& node)
 { return (os << "Node( Pos : " << node.pos_ << " )"); }
