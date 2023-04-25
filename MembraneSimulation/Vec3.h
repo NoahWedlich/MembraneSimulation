@@ -43,6 +43,9 @@ public:
 	Vec3& operator*=(const double d);
 	Vec3& operator/=(const double d);
 
+	double dot(const Vec3& other);
+	double angle(const Vec3& other);
+
 	friend std::ostream& operator<< (std::ostream& os, const Vec3& v);
 
 	double length() const;

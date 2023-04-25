@@ -183,6 +183,16 @@ Vec3& Vec3::operator/=(const double d)
     return *this;
 }
 
+double Vec3::dot(const Vec3& other)
+{
+    return cord_[0]*other.cord_[0] + cord_[1]*other.cord_[1] + cord_[2]*other.cord_[2];
+}
+
+double Vec3::angle(const Vec3& other)
+{
+    return std::acos(dot(other) / (length()*other.length()));
+}
+
 double Vec3::length() const
 {
     return std::sqrt( cord_[0]*cord_[0] +

@@ -36,7 +36,15 @@ NodeGrid::NodeGrid(int len_0, int len_1, int len_2)
     }
 
     //Fix one node, to stop the grid from drifting
-    nodes_[0].set_move_mask(Vec3{ 0.0, 0.0, 0.0 });
+    //nodes_[0].set_move_mask(Vec3{ 0.0, 0.0, 0.0 });
+
+    ConstraintManager::register_curvature(&nodes_[50], &nodes_[51], &nodes_[52], 100, 1);
+    ConstraintManager::register_curvature(&nodes_[51], &nodes_[52], &nodes_[53], 100, 1);
+    ConstraintManager::register_curvature(&nodes_[52], &nodes_[53], &nodes_[54], 100, 1);
+    ConstraintManager::register_curvature(&nodes_[53], &nodes_[54], &nodes_[55], 100, 1);
+    ConstraintManager::register_curvature(&nodes_[54], &nodes_[55], &nodes_[56], 100, 1);
+    ConstraintManager::register_curvature(&nodes_[55], &nodes_[56], &nodes_[57], 100, 1);
+    ConstraintManager::register_curvature(&nodes_[56], &nodes_[57], &nodes_[58], 100, 1);
 
     for (Node& node : nodes_)
     {

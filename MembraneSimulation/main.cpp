@@ -9,8 +9,8 @@ int main()
 {
 	const int length_grid = 20;
 
-	NodeGrid nodes{ 10, 10 };
+	NodeGrid nodes{ length_grid, length_grid };
 
 	MCSolver::register_node_grid(nodes);
-	MCSolver::run_simulation(100000, 100, false);
+	MCSolver::run_simulation(100000, 100, true);
 }

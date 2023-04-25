@@ -43,6 +43,7 @@ private:
 	Node* this_;
 	Node* center_;
 	Node* other_;
+
 	double coeff_;
 	Vec3 curve_dir_;
 };
