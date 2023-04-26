@@ -7,7 +7,7 @@
 
 int main()
 {
-	const int length_grid = 20;
+	const int length_grid = 30;
 
 	NodeGrid nodes{ length_grid, length_grid };
 

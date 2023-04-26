@@ -11,7 +11,7 @@ NodeGrid::NodeGrid(int len_0, int len_1, int len_2)
 
     for (int x0 = -1; x0 <= len_0; x0++)
     {
-        for (int x1 = -1; x1 <= len_1; x1++)
+        for (int x1 = 0; x1 < len_1; x1++)
         {
             for (int x2 = 0; x2 < len_2; x2++)
             {
@@ -21,14 +21,6 @@ NodeGrid::NodeGrid(int len_0, int len_1, int len_2)
                 }
                 else
                 {
-                    double jc_extern = 100;
-                    Vec3 external_strength = Vec3
-                    {
-                        x0 == 0 ? -jc_extern : (x0 == len_0 - 1 ? jc_extern : 0.0),
-                        x1 == 0 ? -jc_extern : (x1 == len_1 - 1 ? jc_extern : 0.0),
-                        0.0
-                    };
-
                     nodes_.push_back(Node(x0, x1, x2, move_mask));
                 }
             }
@@ -36,15 +28,17 @@ NodeGrid::NodeGrid(int len_0, int len_1, int len_2)
     }
 
     //Fix one node, to stop the grid from drifting
-    //nodes_[0].set_move_mask(Vec3{ 0.0, 0.0, 0.0 });
+    // nodes_[0].set_move_mask(Vec3{ 0.0, 0.0, 0.0 });
 
-    ConstraintManager::register_curvature(&nodes_[50], &nodes_[51], &nodes_[52], 100, 1);
-    ConstraintManager::register_curvature(&nodes_[51], &nodes_[52], &nodes_[53], 100, 1);
-    ConstraintManager::register_curvature(&nodes_[52], &nodes_[53], &nodes_[54], 100, 1);
-    ConstraintManager::register_curvature(&nodes_[53], &nodes_[54], &nodes_[55], 100, 1);
-    ConstraintManager::register_curvature(&nodes_[54], &nodes_[55], &nodes_[56], 100, 1);
-    ConstraintManager::register_curvature(&nodes_[55], &nodes_[56], &nodes_[57], 100, 1);
-    ConstraintManager::register_curvature(&nodes_[56], &nodes_[57], &nodes_[58], 100, 1);
+    int x0 = 11;
+    for (int x1 = 9; x1 < 20; x1++)
+    {
+        int index = x0 + x1 * len_0;
+        ConstraintManager::register_curvature(&nodes_[index], &nodes_[index + 1], &nodes_[index + 2], 200, 1);
+        //ConstraintManager::register_curvature(&nodes_[index + 1], &nodes_[index + 2], &nodes_[index + 3], 100, 1);
+        ConstraintManager::register_curvature(&nodes_[index + 2], &nodes_[index + 3], &nodes_[index + 4], 200, 1);
+        //ConstraintManager::register_curvature(&nodes_[index + 3], &nodes_[index + 4], &nodes_[index + 5], 100, 1);
+    }
 
     for (Node& node : nodes_)
     {
